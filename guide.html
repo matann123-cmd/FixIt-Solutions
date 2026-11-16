@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מאגר תקלות IT – פרימיום</title>
+<style>
+:root {
+  --bg: #f4f6fb;
+  --card: #ffffff;
+  --tx: #1a1f2e;
+  --mut: #5c667a;
+  --ac: #2563eb;
+  --ac-soft: #dbeafe;
+  --bd: #e2e8f0;
+  --code: #f1f5f9;
+  --success: #059669;
+  --warn: #d97706;
+  --danger: #dc2626;
+  --sys: #7c3aed;
+  --biz: #0891b2;
+  --home: #059669;
+  box-sizing: border-box;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1219;
+    --card: #1a1f2e;
+    --tx: #e8eaf0;
+    --mut: #94a3b8;
+    --ac: #60a5fa;
+    --ac-soft: #1e3a5f;
+    --bd: #2d3548;
+    --code: #252b3b;
+  }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--tx);
+  font-family: system-ui, -apple-system, "Segoe UI", "Rubik", sans-serif;
+  line-height: 1.65;
+  padding: env(safe-area-inset-top, 0) 0 env(safe-area-inset-bottom, 0);
+}
+main {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 20px 16px 60px;
+}
+header {
+  text-align: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--bd);
+}
+h1 {
+  font-size: 1.65rem;
+  margin: 0 0 6px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.sub {
+  color: var(--mut);
+  margin: 0 0 12px;
+  font-size: 0.98rem;
+}
+.badge-premium {
+  display: inline-block;
+  background: linear-gradient(135deg, #2563eb, #7c3aed);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+}
+input#q {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--tx);
+  font-size: 1.05rem;
+  margin-bottom: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+input#q:focus {
+  border-color: var(--ac);
+  box-shadow: 0 0 0 3px var(--ac-soft);
+}
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.filter-btn {
+  border: 1px solid var(--bd);
+  background: var(--card);
+  color: var(--tx);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.filter-btn:hover { border-color: var(--ac); }
+.filter-btn.active {
+  background: var(--ac);
+  color: white;
+  border-color: var(--ac);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 8px;
+}
+.chip {
+  border: 1px solid var(--bd);
+  background: var(--card);
+  color: var(--tx);
+  padding: 9px 14px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.chip:hover {
+  border-color: var(--ac);
+  background: var(--ac-soft);
+}
+.card {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 16px;
+  padding: 18px 20px;
+  margin-top: 14px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.card h2 {
+  margin: 0 0 10px;
+  font-size: 1.25rem;
+  font-weight: 650;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.level-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: 6px;
+  letter-spacing: 0.02em;
+}
+.level-home { background: #d1fae5; color: #065f46; }
+.level-biz { background: #cffafe; color: #155e75; }
+.level-sys { background: #ede9fe; color: #5b21b6; }
+@media (prefers-color-scheme: dark) {
+  .level-home { background: #064e3b; color: #6ee7b7; }
+  .level-biz { background: #164e63; color: #67e8f9; }
+  .level-sys { background: #4c1d95; color: #c4b5fd; }
+}
+.lb {
+  color: var(--ac);
+  font-weight: 600;
+  margin: 16px 0 5px;
+  font-size: 0.92rem;
+}
+.card p {
+  margin: 0;
+  color: var(--tx);
+}
+.code {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--code);
+  border-radius: 10px;
+  padding: 11px 13px;
+  margin: 7px 0;
+  direction: ltr;
+}
+.code code {
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 0.88rem;
+  word-break: break-all;
+  text-align: left;
+  flex: 1;
+}
+.cp {
+  border: 1px solid var(--bd);
+  background: var(--card);
+  color: var(--tx);
+  border-radius: 8px;
+  padding: 6px 11px;
+  cursor: pointer;
+  flex: none;
+  font-size: 0.85rem;
+  transition: all 0.15s;
+}
+.cp:hover { background: var(--ac); color: white; border-color: var(--ac); }
+.cp.copied { background: var(--success); color: white; border-color: var(--success); }
+.none {
+  color: var(--mut);
+  text-align: center;
+  margin-top: 40px;
+  font-size: 1.05rem;
+}
+.footer-note {
+  text-align: center;
+  color: var(--mut);
+  font-size: 0.85rem;
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid var(--bd);
+}
+.count {
+  color: var(--mut);
+  font-size: 0.9rem;
+  margin: 8px 0 4px;
+}
+</style>
+</head>
+<body>
+<main>
+<header>
+  <div class="badge-premium">PREMIUM BUSINESS PACK</div>
+  <h1>🛠️ מאגר תקלות IT – פרימיום</h1>
+  <p class="sub">חבילת פתרון תקלות מקצועית לעסקים ולמשתמשים ביתיים<br>קל לתפעול • פשוט להבנה • הכל במקום אחד</p>
+</header>
+
+<input id="q" placeholder="חפש תקלה... לדוגמה: מדפסת, VPN, AD, דיסק מלא, PXE" autocomplete="off">
+
+<div class="filters" id="levelFilters">
+  <button class="filter-btn active" data-level="all">הכל</button>
+  <button class="filter-btn" data-level="ביתי">🏠 ביתי</button>
+  <button class="filter-btn" data-level="עסקי">🏢 עסקי</button>
+  <button class="filter-btn" data-level="SysAdmin">⚙️ SysAdmin</button>
+</div>
+
+<div class="count" id="count"></div>
+<div class="chips" id="chips"></div>
+<div id="out"></div>
+
+<div class="footer-note">
+  מאגר תקלות IT פרימיום • מיועד לשימוש פנימי ולמכירה כחבילת ידע מקצועית
+</div>
+</main>
+
+<script>
+// ===================== מאגר הידע =====================
+var KB = [
+
+// ===== מקורי + משופר =====
+{
+  t: "נעילה חוזרת ב־AD",
+  k: "נעילה סיסמה lockout 4740 משתמש נעול ad account lock",
+  level: "SysAdmin",
+  cause: "סיסמה ישנה שנשארה בטלפון, בכונן ממופה או בשירות שרץ ברקע.",
+  exp: "כשמשתמש ננעל שוב ושוב – לא משחררים מיד. קודם מוצאים את מקור הנעילה עם Event ID 4740 ב־Domain Controller, מתקנים את הסיסמה במכשיר/כונן, ורק אז משחררים עם Unlock-ADAccount.",
+  gui: "ADUC ← קליק ימני על המשתמש ← Properties ← Account ← Unlock account.<br>מקור הנעילה: Event Viewer ב־DC → Security → Event ID 4740.",
+  cmd: ["klist purge"],
+  ps: ["Unlock-ADAccount -Identity <user>"],
+  more: ["Get-WinEvent -FilterHashtable @{LogName='Security';Id=4740} | Where-Object {$_.Properties[0].Value -eq '<user>'} | Select -First 5 TimeCreated,@{n='Source';e={$_.Properties[1].Value}}"]
+},
+{
+  t: "מדפסת נעלמה",
+  k: "מדפסת print spooler נעלמה הדפסה printers",
+  level: "עסקי",
+  cause: "שירות Print Spooler תקוע, דרייבר פגום או חיבור למדפסת שהשתנה.",
+  exp: "מאתחלים את שירות ה־Spooler, מנקים תור הדפסה תקוע ומוודאים שהמדפסת עדיין מופיעה בשרת ההדפסה. אם עדיין חסרה – מוחקים ומוסיפים אותה מחדש.",
+  gui: "services.msc ← Print Spooler ← Restart.<br>Settings ← Printers & scanners ← Add device.",
+  cmd: ["net stop spooler", "del /Q /F /S %systemroot%\\System32\\spool\\PRINTERS\\*", "net start spooler"],
+  ps: ["Restart-Service Spooler", "Get-Printer | Select Name,PortName,DriverName"],
+  more: ["Add-Printer -ConnectionName \\\\ <printserver>\\<printer>"]
+},
+{
+  t: "מכשיר Intune לא מסונכרן",
+  k: "intune sync מכשיר לא מסונכרן mdm azure ad join",
+  level: "עסקי",
+  cause: "המכשיר לא ביצע check-in, בעיית רשת או רישום MDM פגום.",
+  exp: "מכריחים סנכרון מהמכשיר או מהפורטל. אם לא עוזר – בודקים שהמכשיר רשום ושמשתמש עם רישיון מחובר, ומריצים dsregcmd לבדיקת מצב ההצטרפות.",
+  gui: "במכשיר: Settings ← Accounts ← Access work or school ← Info ← Sync.<br>בפורטל: Intune ← Devices ← בחירת המכשיר ← Sync.",
+  cmd: ["dsregcmd /status", "gpupdate /force"],
+  ps: ["Get-ScheduledTask | Where TaskName -like '*Schedule*' | Select TaskName,State"],
+  more: ["בודקים בתוצאה של dsregcmd שהשדות AzureAdJoined ו־MDMUrl תקינים"]
+},
+{
+  t: "מחשב לא מקבל IP (DHCP)",
+  k: "dhcp ip כתובת אין רשת 169.254 apipa",
+  level: "ביתי",
+  cause: "שרת DHCP לא זמין, ה־scope מלא או בעיית כבל/VLAN.",
+  exp: "בודקים אם המחשב קיבל כתובת 169.254.x.x (APIPA). משחררים ומחדשים כתובת, ובודקים שה־scope בשרת לא התמלא.",
+  gui: "ncpa.cpl ← קליק ימני על המתאם ← Disable ואז Enable.<br>בשרת: DHCP console ← Scope ← Address Leases.",
+  cmd: ["ipconfig /release", "ipconfig /renew", "ipconfig /all"],
+  ps: ["Get-NetIPConfiguration", "Get-DhcpServerv4ScopeStatistics -ComputerName <dhcp>"],
+  more: ["בדיקת חיבור: ping <default gateway>"]
+},
+{
+  t: "מחשב מת לחלוטין (No Power)",
+  k: "no power לא נדלק ספק כוח psu לוח אם חומרה",
+  level: "ביתי",
+  cause: "הלד בלוח האם דולק, אבל לחיצה על Power לא מדליקה את המאווררים.",
+  exp: "1. כפתור הפעלה: בדיקת חיבור כפתור ה־Power במארז (Front Panel Headers) על לוח האם.<br>2. ספק כוח (PSU): בדיקת מתחים עם טסטר או חיבור ספק חלופי.<br>3. לוח האם: בדיקה ויזואלית לאיתור קבלים נפוחים או קצרים.",
+  gui: "בדיקה פיזית: פתיחת המארז ← בדיקת חיבורי Front Panel Headers על לוח האם ← בדיקת נוריות על לוח האם וספק הכוח.",
+  cmd: [],
+  ps: [],
+  more: []
+},
+{
+  t: "מסך כחול (BSOD) ובדיקת RAM",
+  k: "bsod מסך כחול ram זיכרון irql mdsched קריסה",
+  level: "ביתי",
+  cause: "קריסה מדי פעם עם שגיאות כמו IRQL_NOT_LESS_OR_EQUAL.",
+  exp: "1. בדיקת זיכרון מובנית: Win + R ← mdsched.exe ← אתחול מיידי לבדיקת סטיקי ה־RAM.<br>2. מגעים: הוצאת סטיקי ה־RAM, ניקוי מגעים והחלפת תושבת (DIMM Slot).",
+  gui: "Win + R ← mdsched.exe",
+  cmd: ["mdsched.exe"],
+  ps: [],
+  more: []
+},
+{
+  t: "קבצי מערכת פגומים (SFC ו־DISM)",
+  k: "sfc dism קבצי מערכת פגומים קורסות לא יציבה",
+  level: "ביתי",
+  cause: "תוכנות קורסות ספונטנית או מערכת לא יציבה.",
+  exp: "מריצים ב־CMD כמנהל. SFC סורק ומתקן קבצי מערכת פגומים. DISM מתקן את תמונת המערכת מול שרתי מיקרוסופט.",
+  gui: "לחץ ימני על תפריט התחל ← Windows Terminal (Admin) או Command Prompt (Admin) ← הרץ את הפקודות.",
+  cmd: ["sfc /scannow", "DISM /Online /Cleanup-Image /RestoreHealth"],
+  ps: [],
+  more: []
+},
+{
+  t: "בדיקת IP ו־ipconfig (APIPA)",
+  k: "ipconfig apipa 169.254 dns flushdns ping",
+  level: "ביתי",
+  cause: "כתובת שמתחילה ב־169.254.x.x אומרת שהמחשב לא מקבל IP משרת ה־DHCP.",
+  exp: "1. הרצת ipconfig ב־CMD.<br>2. זיהוי APIPA: בעיית כבל רשת, שקע קיר או פורט סוויץ׳ תקול.<br>3. ניקוי מטמון DNS פותר בעיות תרגום שמות.<br>4. בדיקת תעבורה: ping 8.8.8.8 או ping ל־DC.",
+  gui: "Win + R ← cmd ← Enter. אפשר גם Settings ← Network & internet ← Ethernet/Wi-Fi ← Hardware properties.",
+  cmd: ["ipconfig", "ipconfig /flushdns", "ping 8.8.8.8", "ping <DC address>"],
+  ps: [],
+  more: []
+},
+{
+  t: "אתר חיצוני עובד, מערכות פנימיות לא",
+  k: "lan ניתוב פנימי vpn tracert פנים ארגוני",
+  level: "עסקי",
+  cause: "האינטרנט דרך הספק תקין, אבל החיבור לרשת המקומית (LAN) או הניתוב הפנימי נפלו.",
+  exp: "בודקים כבל רשת, חיבור VPN פעיל, או מריצים tracert לאיתור המקום שבו הניתוב נחסם.",
+  gui: "בדיקת כבל רשת + נורית Link. בדיקת חיבור VPN פעיל ב־FortiClient / לקוח VPN. Settings ← Network & internet.",
+  cmd: ["tracert <destination>"],
+  ps: [],
+  more: []
+},
+{
+  t: "איפוס רשת מלא (Network Reset)",
+  k: "network reset winsock netsh tcp ip איפוס רשת",
+  level: "ביתי",
+  cause: "בעיות תקשורת כלליות, Winsock פגום או מחסנית TCP/IP שבורה.",
+  exp: "מריצים ב־CMD כמנהל: איפוס קטלוג ה־Winsock, איפוס פרוטוקול ה־TCP/IP, ואז שחרור וחידוש כתובת. מומלץ לאתחל בסיום.",
+  gui: "Settings ← Network & internet ← Advanced network settings ← Network reset (אופציה מובנית ב־Windows 10/11). או CMD כמנהל.",
+  cmd: ["netsh winsock reset", "netsh int ip reset", "ipconfig /release", "ipconfig /renew"],
+  ps: [],
+  more: []
+},
+{
+  t: "איפוס תור הדפסה תקוע (Print Spooler)",
+  k: "print spooler תור הדפסה תקוע error ג׳יבריש מדפסת",
+  level: "עסקי",
+  cause: "עבודות הדפסה תקועות על Error, המדפסת לא מגיבה או מוציאה ג׳יבריש.",
+  exp: "1. עצירת השירות.<br>2. מחיקת כל התוכן של תיקיית C:\\Windows\\System32\\spool\\PRINTERS.<br>3. הפעלת השירות מחדש.",
+  gui: "services.msc ← Print Spooler",
+  cmd: ["net stop spooler", "del /Q /F /S %systemroot%\\System32\\spool\\PRINTERS\\*", "net start spooler"],
+  ps: [],
+  more: []
+},
+{
+  t: "תקלות דרייבר וג׳יבריש בהדפסה",
+  k: "דרייבר driver ג׳יבריש הדפסה universal native",
+  level: "עסקי",
+  cause: "דרייבר לא תואם או פגום גורם להדפסה משובשת.",
+  exp: "הסרה מלאה של מנהל ההתקן הקיים והתקנת דרייבר ייעודי נכון (Native או Universal) המתאים לדגם המדפסת.",
+  gui: "Device Manager ← Printers ← Uninstall device",
+  cmd: [],
+  ps: ["Get-PrinterDriver | Select Name", "Remove-PrinterDriver -Name <driver>"],
+  more: []
+},
+{
+  t: "Outlook מבקש סיסמה שוב ושוב",
+  k: "outlook credential manager needs password סיסמה אסמכתאות",
+  level: "ביתי",
+  cause: "אוטלוק מקפיץ חלון סיסמה שוב ושוב או תקוע על Needs Password.",
+  exp: "1. פתיחת Control Panel ← Credential Manager.<br>2. לשונית Windows Credentials ומחיקת כל הפריטים הקשורים ל־MicrosoftOffice16 או Office.<br>3. סגירה ופתיחה מחדש של Outlook.",
+  gui: "Control Panel ← Credential Manager ← Windows Credentials",
+  cmd: ["control /name Microsoft.CredentialManager"],
+  ps: [],
+  more: []
+},
+{
+  t: "קובץ נתונים פגום ב־Outlook (ScanPST)",
+  k: "scanpst ost pst outlook פגום repair",
+  level: "ביתי",
+  cause: "קובץ ה־OST/PST נפגם וגורם לקריסות או חוסר סנכרון.",
+  exp: "1. סגירת Outlook לחלוטין.<br>2. איתור והפעלת SCANPST.EXE מתיקיית ההתקנה של האופיס.<br>3. בחירת קובץ הנתונים ולחיצה על Repair.",
+  gui: "סגור את Outlook → File Explorer ← עבור לנתיב Office16 ← הפעל SCANPST.EXE ← בחר קובץ .ost/.pst ← Start / Repair.",
+  cmd: ["\"C:\\Program Files\\Microsoft Office\\root\\Office16\\SCANPST.EXE\""],
+  ps: [],
+  more: []
+},
+{
+  t: "חיבור מרחוק RDP נכשל",
+  k: "rdp remote desktop 3389 חיבור מרחוק",
+  level: "עסקי",
+  cause: "שירות Remote Desktop כבוי, חומת אש חוסמת או הרשאות חסרות.",
+  exp: "1. וידוא שהמחשב דולק ויש אליו Ping תקין.<br>2. הפעלת השירות: Settings ← System ← Remote Desktop ← Enable.<br>3. חומת אש: פתיחת פורט TCP 3389.<br>4. הרשאות: המשתמש חייב להיות בקבוצת Remote Desktop Users.",
+  gui: "Settings ← System ← Remote Desktop",
+  cmd: ["ping <computer>"],
+  ps: ["Test-NetConnection <computer> -Port 3389", "Get-NetFirewallRule -DisplayGroup 'Remote Desktop' | Select DisplayName,Enabled"],
+  more: []
+},
+{
+  t: "VPN מהבית לא עובד",
+  k: "vpn forticlient גישה מרחוק מהבית gateway",
+  level: "עסקי",
+  cause: "שגיאת סיסמה/MFA, בעיית אימות מול AD או חסימת ספק אינטרנט.",
+  exp: "1. וידוא חיבור אינטרנט יציב.<br>2. וידוא שכתובת שרת ה־Gateway מוגדרת נכון בלקוח (FortiClient).<br>3. בדיקה מול Active Directory שחשבון המשתמש אינו נעול ושהסיסמה לא פגה.",
+  gui: "FortiClient ← Settings ← VPN",
+  cmd: [],
+  ps: ["Get-ADUser <user> -Properties LockedOut,PasswordExpired | Select LockedOut,PasswordExpired"],
+  more: []
+},
+{
+  t: "💡 חוקי ברזל",
+  k: "חוקי ברזל sla triage מונחים מקצועיים",
+  level: "SysAdmin",
+  cause: "עקרונות עבודה בסיסיים לכל טכנאי.",
+  exp: "1. תמיד מהפשוט למורכב: בדיקה פיזית (כבלים, מתגים, נוריות Link) ← בדיקת תוכנה בסיסית (ipconfig, ping) ← החלפת רכיבים או מעבר לדרג הבא.<br>2. תעדוף קריאות (SLA ו־Triage): רציפות טיפול רפואי וקבלת קהל קודמות למשימות מנהליות.<br>3. שליטה במונחים: Isolate the problem, APIPA, Print Spooler, Credential Manager, BSOD, Event Viewer.",
+  gui: "אין ממשק ספציפי – אלה עקרונות עבודה. מומלץ לשמור ככרטיס תזכורת בתיק העבודה / OneNote.",
+  cmd: [],
+  ps: [],
+  more: []
+},
+
+// ===== חדשים מהקובץ הנוסף =====
+{
+  t: "PXE / OSD / Image Failure",
+  k: "pxe osd image 0x80070070 0x80004005 sccm task sequence",
+  level: "SysAdmin",
+  cause: "בעיית תקשורת מול ה־Distribution Point המקומי, חוסר דרייברים של כרטיס רשת ב־Boot Image, או דיסק מלא/פגום.",
+  exp: "ודא חיבור כבל רשת ישיר וקבלת IP תקינה מ־DHCP. לחץ F8 במסך ה־PXE לפתיחת CMD. אמת שחבילת הדרייברים לדגם המחשב מעודכנת ב־Boot Image. לניקוי מחיצות השתמש ב־diskpart. הפעל מחדש את ה־Task Sequence.",
+  gui: "SCCM Console ← Software Library ← Operating Systems ← Boot Images",
+  cmd: ["ipconfig", "ping <IP_of_Local_DP_Server>", "diskpart", "select disk 0", "clean", "exit"],
+  ps: [],
+  more: ["ודא שה־Boot Image מכיל את דרייבר ה־NIC הנכון לדגם"]
+},
+{
+  t: "SCCM Client / Policy Refresh",
+  k: "sccm client policy software center לא מופיע ccmexec",
+  level: "SysAdmin",
+  cause: "סוכן ה־SCCM מנותק מהשרת, שירות SMS Agent Host תקוע, או בעיית DNS מול ה־Management Point.",
+  exp: "ודא שהשירות CcmExec פעיל. הרץ רענון פוליסות ידני. בדוק לוגים בתיקייה C:\\Windows\\CCM\\Logs (CcmExec.log, WUAHandler.log, AppEnforce.log).",
+  gui: "Software Center ← Options ← Computer Maintenance",
+  cmd: ["net start CcmExec"],
+  ps: [
+    "Invoke-WMIMethod -Namespace root\\ccm -Class SMS_Client -Name TriggerSchedule \"{00000000-0000-0000-0000-000000000021}\"",
+    "Invoke-WMIMethod -Namespace root\\ccm -Class SMS_Client -Name TriggerSchedule \"{00000000-0000-0000-0000-000000000121}\""
+  ],
+  more: ["בדוק לוגים: C:\\Windows\\CCM\\Logs"]
+},
+{
+  t: "Trust Relationship Failed / Active Directory",
+  k: "trust relationship failed domain workstation ad secure channel",
+  level: "SysAdmin",
+  cause: "סיסמת המחשב מול ה־AD פגה עקב ניתוק ממושך מהרשת הארגונית.",
+  exp: "התחבר למחשב באמצעות חשבון מקומי (Local Admin). בדוק תקשורת ל־DC. הרץ Test-ComputerSecureChannel -Repair. בצע Restart והתחבר עם חשבון ה־AD של העובד.",
+  gui: "התחברות עם Local Admin ← PowerShell (Admin) ← הרצת הפקודה ← Restart. לחלופין: System Properties ← Computer Name ← Change ← Domain (הצטרפות מחדש).",
+  cmd: ["ping domain.corp"],
+  ps: ["Test-ComputerSecureChannel -Repair -Credential \"DOMAIN\\AdminUser\""],
+  more: ["לאחר התיקון – Restart חובה"]
+},
+{
+  t: "Barcode Scanners & Mobile Terminals",
+  k: "barcode scanner מסופון סורק ברקודים usb mobile terminal",
+  level: "עסקי",
+  cause: "תקלת דרייבר מקומי, השבתת שירות קלט, או בעיית מתח בפורט ה־USB / עגינה.",
+  exp: "נתק מהעגינה ובדוק חיבור ישיר בכבל חלופי. בדוק ב־Device Manager שאין סימני קריאה צהובים. בצע Hard Reset למסופון (לחצן הפעלה + הנמכת ווליום ל־10 שניות). התקן מחדש את דרייבר ה־USB או פרופיל הברקודים.",
+  gui: "Device Manager ← Universal Serial Bus controllers",
+  cmd: [],
+  ps: [],
+  more: ["Hard Reset: כפתור הפעלה + Volume Down למשך 10 שניות"]
+},
+{
+  t: "Print Spooler Crash – מדפסות מדבקות",
+  k: "print spooler מדפסת מדבקות תקועה label printer",
+  level: "עסקי",
+  cause: "שירות ההדפסה קרס עקב קובץ פגום בזיכרון הזמני או שינוי כתובת IP.",
+  exp: "עצור את השירות, מחק קבצים תקועים בתור, הפעל מחדש את השירות ושלח דף בדיקה.",
+  gui: "services.msc ← Print Spooler",
+  cmd: ["net stop spooler", "del /Q /F /S \"%systemroot%\\System32\\spool\\PRINTERS\\*.*\"", "net start spooler"],
+  ps: [],
+  more: ["שלח Test Page לאחר ההפעלה מחדש"]
+},
+{
+  t: "Switch Port Down / Network Disconnect",
+  k: "switch port down error disabled כבל רשת נורית link",
+  level: "SysAdmin",
+  cause: "כבל פגום, שקע קיר מנותק, או פורט ב־Switch שננעל (Error Disabled).",
+  exp: "החלף כבל ובדוק נוריות חיווי (Link Light). אמת תקינות שקע הקיר. בארון התקשורת – אפס את הפורט אם הוא Error Disabled.",
+  gui: "בדיקה פיזית: נורית Link על כרטיס הרשת ועל הסוויץ'. בארון IDF: התחברות ל־CLI של הסוויץ' (SSH/Console) ← מציאת הפורט ← shutdown / no shutdown.",
+  cmd: ["interface GigabitEthernet1/0/X", "shutdown", "no shutdown"],
+  ps: [],
+  more: ["בדוק עם בודק כבלים או לפטופ חלופי"]
+},
+{
+  t: "FortiClient VPN Troubleshooting",
+  k: "forticlient vpn tunnel negotiation authentication failed",
+  level: "עסקי",
+  cause: "שגיאת סיסמה/MFA, בעיית אימות מול AD, או חסימת ספק אינטרנט.",
+  exp: "ודא הזנת סיסמת AD וקוד MFA מדויקים. אמת תקשורת בסיסית עם nslookup. אפס את שירותי FortiClient. במידת הצורך – חלץ לוגים והעבר לצוות אבטחת מידע.",
+  gui: "FortiClient ← Settings",
+  cmd: ["nslookup vpn.tnuva.co.il", "net stop FortiShield", "net start FortiShield"],
+  ps: [],
+  more: ["חלץ לוגים והעבר ל־SOC / צוות רשתות"]
+},
+{
+  t: "Low Disk Space / C: Drive Full",
+  k: "disk full c: low space temp ccmcache cleanmgr",
+  level: "ביתי",
+  cause: "הצטברות קבצי Temp, לוגים ענקיים של SCCM/CBS, או קבצי גיבוי Windows Update ישנים.",
+  exp: "הפעל ניקוי דיסק מערכתי. נקה את ה־Cache של SCCM. נקה תיקיות Temp. הרץ ניקוי רכיבים ישנים עם DISM.",
+  gui: "This PC ← קליק ימני על C: ← Properties ← Disk Cleanup",
+  cmd: ["cleanmgr /sagerun:1", "del /q /f /s \"%temp%\\*\"", "del /q /f /s \"%systemroot%\\Temp\\*\"", "Dism.exe /online /Cleanup-Image /StartComponentCleanup"],
+  ps: ["Get-ChildItem -Path \"C:\\Windows\\ccmcache\" -Recurse | Remove-Item -Force -Recurse"],
+  more: []
+},
+{
+  t: "EDR / Firewall Block (CrowdStrike)",
+  k: "crowdstrike edr block false positive forticlient hash",
+  level: "SysAdmin",
+  cause: "תוכנה פנימית או גישה לתיקייה נחסמות במפתיע על ידי מערכות אבטחת הקצה.",
+  exp: "אסור לנטרל את ה־EDR! זהה את הקובץ החסום, חלץ את ה־Hash (SHA256) והעבר לצוות אבטחת מידע לקבלת Exclusion.",
+  gui: "CrowdStrike Falcon / FortiClient console",
+  cmd: [],
+  ps: ["Get-FileHash -Path \"C:\\Path\\To\\BlockedFile.exe\" -Algorithm SHA256"],
+  more: ["העבר: שם משתמש, שם תחנה, נתיב מלא וקוד SHA256"]
+},
+{
+  t: "החלפת דיסק קשיח בשטח (Field Disk Replacement)",
+  k: "disk replacement ssd hdd failure pxe field",
+  level: "SysAdmin",
+  cause: "מחשב נייד/עמדה קרסו עקב תקלת חומרה בדיסק ויש להחליף דיסק ולשחזר תפקוד מהר.",
+  exp: "צ'ק-ליסט עבודה בשטח:<br>1. גיבוי נתונים ראשוני (אם הדיסק קורא) – מתאם USB + העתקת Desktop, Documents, Downloads, Favorites.<br>2. החלפה פיזית – פתיחת מארז, ניתוק סוללה/מתח, התקנת SSD חדש.<br>3. התקנת מערכת – חיבור לרשת, PXE Boot, Task Sequence מלא ב־SCCM.<br>4. השלמת פריסה – הצטרפות לדומיין, סוכן SCCM, שחזור קבצים, בדיקת יישומים.",
+  gui: "1. גיבוי: חיבור דיסק ישן דרך USB Adapter ← העתקה ידנית.<br>2. החלפה פיזית במארז.<br>3. BIOS ← Boot Order ← Network/PXE.<br>4. לאחר התקנה: בדיקת Domain Join + Software Center.",
+  cmd: [],
+  ps: [],
+  more: ["ודא שהדיסק החדש מזוהה ב־BIOS לפני הפעלת PXE"]
+}
+
+];
+
+// ===================== לוגיקה =====================
+var q = document.getElementById("q");
+var out = document.getElementById("out");
+var chips = document.getElementById("chips");
+var countEl = document.getElementById("count");
+var currentLevel = "all";
+
+function esc(s) {
+  return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+}
+
+function levelClass(level) {
+  if (level === "ביתי") return "level-home";
+  if (level === "עסקי") return "level-biz";
+  return "level-sys";
+}
+
+function codes(label, arr) {
+  if (!arr || !arr.length) return "";
+  return '<div class="lb">' + label + '</div>' +
+    arr.map(function(c) {
+      return '<div class="code"><code>' + esc(c) + '</code><button class="cp" data-c="' + encodeURIComponent(c) + '">העתקה</button></div>';
+    }).join("");
+}
+
+function show(i) {
+  var x = KB[i];
+  var html = '<div class="card">';
+  html += '<h2>' + esc(x.t) + ' <span class="level-tag ' + levelClass(x.level) + '">' + esc(x.level) + '</span></h2>';
+  if (x.cause) html += '<div class="lb">סיבה סבירה</div><p>' + x.cause + '</p>';
+  html += '<div class="lb">הסבר ופתרון</div><p>' + x.exp + '</p>';
+  if (x.gui) html += '<div class="lb">בממשק</div><p>' + x.gui + '</p>';
+  html += codes("CMD", x.cmd);
+  html += codes("PowerShell", x.ps);
+  html += codes("אם לא עזר", x.more);
+  html += '</div>';
+  out.innerHTML = html;
+}
+
+function render(filterText) {
+  chips.innerHTML = "";
+  var n = 0;
+  var f = (filterText || "").toLowerCase().trim();
+
+  KB.forEach(function(x, i) {
+    // סינון לפי רמה
+    if (currentLevel !== "all" && x.level !== currentLevel) return;
+    // סינון לפי טקסט
+    if (f && (x.t + " " + x.k + " " + x.level).toLowerCase().indexOf(f) < 0) return;
+
+    n++;
+    var b = document.createElement("button");
+    b.className = "chip";
+    b.innerHTML = x.t + ' <span style="opacity:0.6;font-size:0.8em">(' + x.level + ')</span>';
+    b.onclick = function() { show(i); };
+    chips.appendChild(b);
+  });
+
+  countEl.textContent = n === 0 ? "" : "נמצאו " + n + " תקלות";
+  if (!n) {
+    out.innerHTML = '<p class="none">לא נמצאה תקלה מתאימה</p>';
+  } else if (!filterText && currentLevel === "all") {
+    out.innerHTML = "";
+  }
+}
+
+// חיפוש חי
+q.oninput = function() {
+  out.innerHTML = "";
+  render(q.value);
+};
+
+// סינון רמות
+document.getElementById("levelFilters").addEventListener("click", function(e) {
+  var btn = e.target.closest(".filter-btn");
+  if (!btn) return;
+  document.querySelectorAll(".filter-btn").forEach(function(b) { b.classList.remove("active"); });
+  btn.classList.add("active");
+  currentLevel = btn.getAttribute("data-level");
+  out.innerHTML = "";
+  render(q.value);
+});
+
+// העתקה
+document.addEventListener("click", function(e) {
+  var btn = e.target.closest(".cp");
+  if (!btn) return;
+  var c = btn.getAttribute("data-c");
+  if (c) {
+    try {
+      navigator.clipboard.writeText(decodeURIComponent(c));
+      btn.textContent = "הועתק ✓";
+      btn.classList.add("copied");
+      setTimeout(function() {
+        btn.textContent = "העתקה";
+        btn.classList.remove("copied");
+      }, 1800);
+    } catch (err) {}
+  }
+});
+
+// אתחול
+render("");
+</script>
+</main>
+</body>
+</html>

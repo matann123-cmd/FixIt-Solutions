@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fix It Solutions | פתרון קליל ויעיל לתקלות IT</title>
+<meta name="description" content="Fix It Solutions – מדריכי פתרון תקלות IT פרימיום לבית ולעסק, תמיכה מרחוק ומדריכים מקצועיים.">
+<style>
+:root {
+  --bg: #f8fafc;
+  --card: #ffffff;
+  --tx: #0f172a;
+  --mut: #64748b;
+  --ac: #2563eb;
+  --ac-dark: #1d4ed8;
+  --ac-soft: #dbeafe;
+  --bd: #e2e8f0;
+  --green: #059669;
+  --green-soft: #d1fae5;
+  --orange: #d97706;
+  --purple: #7c3aed;
+  --radius: 16px;
+  --shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1120;
+    --card: #1e293b;
+    --tx: #f1f5f9;
+    --mut: #94a3b8;
+    --ac: #60a5fa;
+    --ac-dark: #3b82f6;
+    --ac-soft: #1e3a5f;
+    --bd: #334155;
+    --green-soft: #064e3b;
+  }
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", "Rubik", "Heebo", sans-serif;
+  background: var(--bg);
+  color: var(--tx);
+  line-height: 1.7;
+}
+a { color: var(--ac); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Header */
+.header {
+  background: linear-gradient(135deg, #1e40af 0%, #7c3aed 100%);
+  color: white;
+  padding: 18px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+}
+.header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.logo {
+  font-size: 1.35rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo span { opacity: 0.9; font-weight: 400; font-size: 0.95rem; }
+.nav {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.nav a {
+  color: white;
+  padding: 7px 14px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: background 0.2s;
+  text-decoration: none;
+}
+.nav a:hover { background: rgba(255,255,255,0.18); }
+
+/* Hero */
+.hero {
+  background: linear-gradient(160deg, #1e40af 0%, #4f46e5 50%, #7c3aed 100%);
+  color: white;
+  padding: 60px 20px 70px;
+  text-align: center;
+}
+.hero h1 {
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  font-weight: 800;
+  margin-bottom: 14px;
+  letter-spacing: -0.03em;
+}
+.hero p {
+  font-size: 1.15rem;
+  max-width: 640px;
+  margin: 0 auto 28px;
+  opacity: 0.95;
+  line-height: 1.75;
+}
+.hero-btns {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 13px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+}
+.btn-primary {
+  background: white;
+  color: #1e40af;
+}
+.btn-primary:hover {
+  background: #f0f4ff;
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+.btn-outline {
+  background: transparent;
+  color: white;
+  border: 2px solid rgba(255,255,255,0.6);
+}
+.btn-outline:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: white;
+  text-decoration: none;
+}
+
+/* Main layout */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 18px 80px;
+}
+
+/* Sections */
+section {
+  margin-bottom: 56px;
+}
+.section-title {
+  font-size: 1.55rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-sub {
+  color: var(--mut);
+  margin-bottom: 24px;
+  font-size: 1.02rem;
+}
+
+/* About card */
+.about-card {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: var(--radius);
+  padding: 28px 30px;
+  box-shadow: var(--shadow);
+  font-size: 1.05rem;
+  line-height: 1.85;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--bd);
+  padding-bottom: 0;
+}
+.tab-btn {
+  padding: 11px 20px;
+  border: none;
+  background: transparent;
+  color: var(--mut);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  transition: all 0.2s;
+  border-radius: 8px 8px 0 0;
+}
+.tab-btn:hover { color: var(--ac); background: var(--ac-soft); }
+.tab-btn.active {
+  color: var(--ac);
+  border-bottom-color: var(--ac);
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Guide cards */
+.guides-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+.guide-card {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.guide-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.1);
+}
+.guide-card .level {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 6px;
+  display: inline-block;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+.level-home { background: var(--green-soft); color: #065f46; }
+.level-biz { background: #cffafe; color: #155e75; }
+.level-sys { background: #ede9fe; color: #5b21b6; }
+@media (prefers-color-scheme: dark) {
+  .level-home { background: #064e3b; color: #6ee7b7; }
+  .level-biz { background: #164e63; color: #67e8f9; }
+  .level-sys { background: #4c1d95; color: #c4b5fd; }
+}
+.guide-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 8px;
+}
+.guide-card p {
+  color: var(--mut);
+  font-size: 0.95rem;
+  flex: 1;
+  margin-bottom: 16px;
+}
+.guide-card .price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--ac);
+  margin-bottom: 12px;
+}
+.guide-card .price small {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--mut);
+}
+.btn-sm {
+  padding: 10px 16px;
+  font-size: 0.92rem;
+  border-radius: 10px;
+  text-align: center;
+  justify-content: center;
+}
+.btn-download {
+  background: var(--ac);
+  color: white;
+}
+.btn-download:hover {
+  background: var(--ac-dark);
+  text-decoration: none;
+}
+
+/* Pricing packages */
+.packages {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+}
+.package {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: var(--radius);
+  padding: 26px 24px;
+  box-shadow: var(--shadow);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.package.featured {
+  border: 2px solid var(--ac);
+  transform: scale(1.02);
+}
+.package .badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ac);
+  color: white;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 4px 14px;
+  border-radius: 999px;
+}
+.package h3 {
+  font-size: 1.3rem;
+  margin-bottom: 6px;
+}
+.package .pkg-price {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--ac);
+  margin: 10px 0 16px;
+}
+.package .pkg-price span {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--mut);
+}
+.package ul {
+  list-style: none;
+  margin-bottom: 22px;
+  flex: 1;
+}
+.package ul li {
+  padding: 6px 0;
+  padding-right: 22px;
+  position: relative;
+  font-size: 0.97rem;
+}
+.package ul li::before {
+  content: "✓";
+  position: absolute;
+  right: 0;
+  color: var(--green);
+  font-weight: 700;
+}
+
+/* Remote support */
+.remote-box {
+  background: linear-gradient(135deg, #0f766e 0%, #0e7490 100%);
+  color: white;
+  border-radius: var(--radius);
+  padding: 32px 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: center;
+  justify-content: space-between;
+}
+.remote-box h2 {
+  font-size: 1.4rem;
+  margin-bottom: 8px;
+}
+.remote-box p {
+  opacity: 0.95;
+  max-width: 520px;
+  font-size: 1.02rem;
+}
+.remote-price {
+  background: rgba(255,255,255,0.15);
+  border-radius: 14px;
+  padding: 18px 28px;
+  text-align: center;
+  min-width: 200px;
+}
+.remote-price .amount {
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+.remote-price .note {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  margin-top: 4px;
+}
+.btn-white {
+  background: white;
+  color: #0f766e;
+  margin-top: 14px;
+  width: 100%;
+  justify-content: center;
+}
+.btn-white:hover {
+  background: #f0fdfa;
+  text-decoration: none;
+}
+
+/* Concepts */
+.concepts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 16px;
+}
+.concept {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: 14px;
+  padding: 18px 20px;
+  box-shadow: var(--shadow);
+}
+.concept h4 {
+  font-size: 1.08rem;
+  margin-bottom: 6px;
+  color: var(--ac);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.concept p {
+  font-size: 0.94rem;
+  color: var(--mut);
+  line-height: 1.65;
+}
+
+/* Footer */
+footer {
+  background: var(--card);
+  border-top: 1px solid var(--bd);
+  padding: 28px 20px;
+  text-align: center;
+  color: var(--mut);
+  font-size: 0.92rem;
+}
+footer strong { color: var(--tx); }
+
+/* TOC quick links */
+.toc {
+  background: var(--card);
+  border: 1px solid var(--bd);
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  margin-bottom: 40px;
+  box-shadow: var(--shadow);
+}
+.toc h3 {
+  font-size: 1.1rem;
+  margin-bottom: 12px;
+}
+.toc-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.toc-links a {
+  background: var(--ac-soft);
+  color: var(--ac);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+.toc-links a:hover {
+  background: var(--ac);
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">
+      🛠️ Fix It Solutions
+      <span>| פתרון קליל ויעיל</span>
+    </div>
+    <nav class="nav">
+      <a href="#about">אודות</a>
+      <a href="#guides">מדריכים</a>
+      <a href="#pricing">תמחור</a>
+      <a href="#remote">תמיכה מרחוק</a>
+      <a href="#concepts">מושגי בסיס</a>
+    </nav>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <h1>Fix It Solutions</h1>
+  <p>
+    אנחנו <strong>Fix It Solutions</strong> – פתרון קליל ויעיל לתקלות מחשוב.<br>
+    מדריכים מקצועיים, חבילות ידע מוכנות לשימוש ותמיכה מרחוק – הכל במקום אחד, בעברית פשוטה וברורה.
+  </p>
+  <div class="hero-btns">
+    <a href="#guides" class="btn btn-primary">למדריכי הפרימיום</a>
+    <a href="#remote" class="btn btn-outline">הזמנת טכנאי מרחוק</a>
+  </div>
+</section>
+
+<main>
+
+  <!-- Quick TOC -->
+  <div class="toc">
+    <h3>📑 תוכן עניינים</h3>
+    <div class="toc-links">
+      <a href="#about">מי אנחנו</a>
+      <a href="#guides">מדריכי פרימיום</a>
+      <a href="#pricing">חבילות תמחור</a>
+      <a href="#remote">קריאה לטכנאי מרחוק</a>
+      <a href="#concepts">מושגי בסיס (IP, DNS, DHCP...)</a>
+    </div>
+  </div>
+
+  <!-- About -->
+  <section id="about">
+    <h2 class="section-title">👋 מי אנחנו</h2>
+    <p class="section-sub">Fix It Solutions – פתרון קליל ויעיל</p>
+    <div class="about-card">
+      <p>
+        <strong>אנחנו Fix It Solutions</strong> – צוות שמתמחה במתן פתרונות IT מהירים, ברורים ויעילים.<br><br>
+        בין אם אתה משתמש ביתי שנתקע עם מדפסת שלא עובדת, עסק קטן שצריך לפתור בעיות רשת, או SysAdmin שמחפש מדריכים מתקדמים – אנחנו כאן בשבילך.<br><br>
+        המדריכים שלנו בנויים בצורה פשוטה להבנה, עם שלבים ברורים, פקודות מוכנות להעתקה, והסברים בעברית יומיומית. 
+        המטרה שלנו: <strong>לחסוך לך זמן וכסף</strong> ולתת לך כלים לפתור תקלות בעצמך – או לקבל עזרה מקצועית מרחוק תוך דקות.
+      </p>
+    </div>
+  </section>
+
+  <!-- Guides with Tabs -->
+  <section id="guides">
+    <h2 class="section-title">📚 מדריכי פרימיום</h2>
+    <p class="section-sub">בחר רמה והורד את המדריך המתאים לך</p>
+
+    <div class="tabs" id="guideTabs">
+      <button class="tab-btn active" data-tab="all">הכל</button>
+      <button class="tab-btn" data-tab="home">🏠 ביתי</button>
+      <button class="tab-btn" data-tab="biz">🏢 עסקי</button>
+      <button class="tab-btn" data-tab="sys">⚙️ SysAdmin</button>
+    </div>
+
+    <!-- All / Home -->
+    <div class="tab-content active" id="tab-all">
+      <div class="guides-grid">
+        <div class="guide-card">
+          <span class="level level-home">ביתי</span>
+          <h3>מאגר תקלות IT – פרימיום מלא</h3>
+          <p>27 תקלות נפוצות עם פתרונות מפורטים, פקודות CMD ו-PowerShell, והסברים בעברית. כולל חיפוש חכם וסינון לפי רמה.</p>
+          <div class="price">149 ₪ <small>/ חד פעמי</small></div>
+          <a href="guide.html" class="btn btn-sm btn-download" download>הורד את המדריך</a>
+        </div>
+
+        <div class="guide-card">
+          <span class="level level-home">ביתי</span>
+          <h3>חבילת בית – בסיס</h3>
+          <p>מדריכים לפתרון תקלות נפוצות בבית: רשת, מדפסת, Outlook, BSOD, דיסק מלא ואיפוס רשת.</p>
+          <div class="price">79 ₪ <small>/ חד פעמי</small></div>
+          <a href="guide.html" class="btn btn-sm btn-download" download>הורד חבילת בית</a>
+        </div>
+
+        <div class="guide-card">
+          <span class="level level-biz">עסקי</span>
+          <h3>חבילת עסקים</h3>
+          <p>מדפסות רשת, VPN, RDP, Intune, SCCM בסיסי, סורקי ברקוד ותקלות נפוצות בסביבה ארגונית.</p>
+          <div class="price">199 ₪ <small>/ חד פעמי</small></div>
+          <a href="guide.html" class="btn btn-sm btn-download" download>הורד חבילת עסקים</a>
+        </div>
+
+        <div class="guide-card">
+          <span class="level level-sys">SysAdmin</span>
+          <h3>חבילת SysAdmin מתקדמת</h3>
+          <p>PXE/OSD, Trust Relationship, Switch Port, CrowdStrike, החלפת דיסק בשטח, נעילות AD ועוד.</p>
+          <div class="price">249 ₪ <small>/ חד פעמי</small></div>
+          <a href="guide.html" class="btn btn-sm btn-download" download>הורד חבילת SysAdmin</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-home">
+      <div class="guides-grid">
+        <div class="guide-card">
+          <span class="level level-home">ביתי</span>
+          <h3>חבילת בית – בסיס</h3>
+          <p>מדריכים לפתרון תקלות נפוצות בבית: רשת, מדפסת, Outlook, BSOD, דיסק מלא ואיפוס רשת.</p>
+          <div class="price">79 ₪ <small>/ חד פעמי</small></div>
+          <a href="guide.html" class="btn btn-sm btn-download" download>הורד חבילת בית</a>
+        </div>
+        <div class="guide-card">
+          <span class="level level-home">ביתי</span>
+          <h3>מאגר מלא (כולל ביתי)</h3>
+          <p>כל 27 התקלות במקום אחד – כולל רמות ביתי, עסקי ו-SysAdmin.</p>
+          <div class="price">149 ₪ <small>/ חד פעמי</small></div>
+          <a href="guide.html" class="btn btn-sm btn-download" download>הורד מאגר מלא</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-biz">
+      <div class="guides-grid">
+        <div class="guide-card">
+          <span class="level level-biz">עסקי</span>
+          <h3>חבילת עסקים</h3>
+          <p>מדפסות רשת, VPN, RDP, Intune, סורקי ברקוד ותקלות נפוצות בסביבה ארגונית.</p>
+          <div class="price">199 ₪ <small>/ חד פעמי</small></div>
+          <a href="guide.html" class="btn btn-sm btn-download" download>הורד חבילת עסקים</a>
+        </div>
+        <div class="guide-card">
+          <span class="level level-biz">עסקי</span>
+          <h3>מאגר מלא (כולל עסקי)</h3>
+          <p>כל המדריכים במקום אחד – מומלץ לעסקים שרוצים כיסוי מלא.</p>
+          <div class="price">149 ₪ <small>/ חד פעמי</small></div>
+          <a href="guide.html" class="btn btn-sm btn-download" download>הורד מאגר מלא</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-sys">
+      <div class="guides-grid">
+        <div class="guide-card">
+          <span class="level level-sys">SysAdmin</span>
+          <h3>חבילת SysAdmin מתקדמת</h3>
+          <p>PXE/OSD, Trust Relationship, Switch Port, CrowdStrike, החלפת דיסק בשטח, נעילות AD ועוד.</p>
+          <div class="price">249 ₪ <small>/ חד פעמי</small></div>
+          <a href="guide.html" class="btn btn-sm btn-download" download>הורד חבילת SysAdmin</a>
+        </div>
+        <div class="guide-card">
+          <span class="level level-sys">SysAdmin</span>
+          <h3>מאגר מלא (כולל SysAdmin)</h3>
+          <p>המאגר המלא עם כל הרמות – הכי משתלם למי שרוצה הכל.</p>
+          <div class="price">149 ₪ <small>/ חד פעמי</small></div>
+          <a href="guide.html" class="btn btn-sm btn-download" download>הורד מאגר מלא</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing">
+    <h2 class="section-title">💰 חבילות תמחור</h2>
+    <p class="section-sub">בחר את החבילה שמתאימה לך – תשלום חד פעמי, ללא מנוי</p>
+
+    <div class="packages">
+      <div class="package">
+        <h3>🏠 ביתי</h3>
+        <div class="pkg-price">79 ₪ <span>/ חד פעמי</span></div>
+        <ul>
+          <li>מדריכי תקלות ביתיות</li>
+          <li>רשת, מדפסת, Outlook</li>
+          <li>BSOD ודיסק מלא</li>
+          <li>הורדה מיידית</li>
+        </ul>
+        <a href="guide.html" class="btn btn-sm btn-download" download>רכישה והורדה</a>
+      </div>
+
+      <div class="package featured">
+        <div class="badge">הכי משתלם</div>
+        <h3>📦 מאגר מלא</h3>
+        <div class="pkg-price">149 ₪ <span>/ חד פעמי</span></div>
+        <ul>
+          <li>כל 27 התקלות</li>
+          <li>ביתי + עסקי + SysAdmin</li>
+          <li>חיפוש וסינון חכם</li>
+          <li>עדכונים עתידיים</li>
+        </ul>
+        <a href="guide.html" class="btn btn-sm btn-download" download>רכישה והורדה</a>
+      </div>
+
+      <div class="package">
+        <h3>🏢 עסקי</h3>
+        <div class="pkg-price">199 ₪ <span>/ חד פעמי</span></div>
+        <ul>
+          <li>מדריכים לסביבה ארגונית</li>
+          <li>VPN, RDP, Intune</li>
+          <li>מדפסות רשת וסורקים</li>
+          <li>תמיכה בהגדרות</li>
+        </ul>
+        <a href="guide.html" class="btn btn-sm btn-download" download>רכישה והורדה</a>
+      </div>
+
+      <div class="package">
+        <h3>⚙️ SysAdmin</h3>
+        <div class="pkg-price">249 ₪ <span>/ חד פעמי</span></div>
+        <ul>
+          <li>PXE / OSD / SCCM</li>
+          <li>AD Trust & Lockout</li>
+          <li>Switch & EDR</li>
+          <li>נהלי שטח</li>
+        </ul>
+        <a href="guide.html" class="btn btn-sm btn-download" download>רכישה והורדה</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Remote Support -->
+  <section id="remote">
+    <h2 class="section-title">🖥️ תמיכה מרחוק</h2>
+    <p class="section-sub">לא מסתדרים לבד? טכנאי מקצועי יתחבר אליך מרחוק ויפתור את הבעיה</p>
+
+    <div class="remote-box">
+      <div>
+        <h2>קריאה לטכנאי מרחוק</h2>
+        <p>
+          טכנאי מנוסה מתחבר למחשב שלך בצורה מאובטחת, מזהה את התקלה ופותר אותה בזמן אמת.<br>
+          מתאים לתקלות רשת, מדפסות, Outlook, Windows, VPN ועוד.
+        </p>
+      </div>
+      <div class="remote-price">
+        <div class="amount">100–200 ₪</div>
+        <div class="note">לפי מורכבות התקלה<br>תשלום חד פעמי</div>
+        <a href="https://wa.me/972509660441?text=שלום, אשמח לתמיכה מרחוק מ-Fix It Solutions" class="btn btn-white" target="_blank" rel="noopener">
+          הזמן טכנאי עכשיו
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Basic Concepts -->
+  <section id="concepts">
+    <h2 class="section-title">📖 מושגי בסיס שכדאי להכיר</h2>
+    <p class="section-sub">הבנה בסיסית של המושגים האלה תעזור לך לפתור תקלות מהר יותר</p>
+
+    <div class="concepts-grid">
+      <div class="concept">
+        <h4>🌐 IP (כתובת IP)</h4>
+        <p>מספר ייחודי שמזהה כל מכשיר ברשת (למשל 192.168.1.10). בלי IP תקין – אין תקשורת.</p>
+      </div>
+      <div class="concept">
+        <h4>📡 DHCP</h4>
+        <p>שירות שמחלק כתובות IP אוטומטית. אם קיבלת 169.254.x.x – ה-DHCP לא עובד (בעיית כבל/שרת).</p>
+      </div>
+      <div class="concept">
+        <h4>🔤 DNS</h4>
+        <p>מתרגם שמות אתרים (google.com) לכתובות IP. אם אתרים לא נפתחים אבל פינג ל-8.8.8.8 עובד – כנראה בעיית DNS.</p>
+      </div>
+      <div class="concept">
+        <h4>📶 Ping</h4>
+        <p>בדיקה בסיסית האם יש תקשורת למכשיר אחר. <code>ping 8.8.8.8</code> בודק אינטרנט, <code>ping שם-מחשב</code> בודק רשת פנימית.</p>
+      </div>
+      <div class="concept">
+        <h4>🖨️ Print Spooler</h4>
+        <p>השירות שאחראי על תור ההדפסה. כשהוא תקוע – מדפסות לא עובדות. פתרון נפוץ: עצירה, ניקוי תור, הפעלה מחדש.</p>
+      </div>
+      <div class="concept">
+        <h4>🔐 APIPA</h4>
+        <p>כתובת שמתחילה ב-169.254. מופיעה כשהמחשב לא מצליח לקבל IP משרת DHCP. בדרך כלל בעיית כבל או סוויץ'.</p>
+      </div>
+      <div class="concept">
+        <h4>🖥️ RDP</h4>
+        <p>Remote Desktop – חיבור מרחוק למחשב אחר. דורש שהשירות יהיה מופעל ופורט 3389 פתוח בחומת האש.</p>
+      </div>
+      <div class="concept">
+        <h4>🛡️ EDR</h4>
+        <p>מערכת הגנה מתקדמת (כמו CrowdStrike). לפעמים חוסמת תוכנות לגיטימיות – אסור לכבות, צריך לבקש Exclusion.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p><strong>Fix It Solutions</strong> – פתרון קליל ויעיל לתקלות IT</p>
+  <p style="margin-top:6px;">מדריכים מקצועיים • תמיכה מרחוק • ידע בעברית פשוטה</p>
+  <p style="margin-top:12px; font-size:0.85rem;">© 2026 Fix It Solutions. כל הזכויות שמורות.</p>
+</footer>
+
+<script>
+// Tabs logic
+document.querySelectorAll('.tab-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+    document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+    btn.classList.add('active');
+    var tab = btn.getAttribute('data-tab');
+    var target = document.getElementById('tab-' + tab);
+    if (target) target.classList.add('active');
+  });
+});
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+  a.addEventListener('click', function(e) {
+    var id = a.getAttribute('href');
+    if (id.length > 1) {
+      e.preventDefault();
+      var el = document.querySelector(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+</body>
+</html>
